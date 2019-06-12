@@ -5,60 +5,56 @@
  */
 package ca.sheridancollege.project;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * The class that models your game. You should create a more specific
  * child of this class and instantiate the methods given.
  * 
  */
-public abstract class Game 
+public class Game 
 {
-    private final String gameName;//the title of the game
-    private ArrayList <Player> players;// the players of the game
-    
-    public Game(String givenName)
+    private ArrayList<GroupOfCards> cards;
+    Game()
     {
-        gameName = givenName;
-        players = new ArrayList();
-    }
+        cards = new ArrayList<GroupOfCards>();
+        int index_1, index_2;
+        Random generator = new Random();
+        GroupOfCards temp;
 
-    /**
-     * @return the gameName
-     */
-    public String getGameName() 
+       short jokerSuit=5;
+       short jokerRank = 0;
+           cards.add(new GroupOfCards(jokerSuit, jokerRank));
+           cards.add(new GroupOfCards(jokerSuit,jokerRank));
+        for (short suit=0; suit<=3; suit++)
+        {
+             for (short rank=0; rank<=12; rank++)
+             {
+                  cards.add(new GroupOfCards(suit,rank));
+             }
+        }//End of for-loop       
+        int Size = 54;             
+        for (int i=0; i<1000; i++)
+        {
+            index_1 = generator.nextInt( cards.size() );
+            index_2 = generator.nextInt( cards.size() );
+            temp = cards.get( index_2 );                    
+            cards.set( index_2 , cards.get( index_1 ) );
+            cards.set( index_1, temp );
+        }//End of for-loop
+    }//End of Game()
+    public GroupOfCards drawFromGame()
     {
-        return gameName;
-    }
-    
-     /**
-     * @return the players of this game
-     */
-    public ArrayList <Player> getPlayers() 
+    /*
+     * This method removes the top card of the already shuffled deck.          
+     * The next step to take with this class is put the drawn card into another
+     *     array that represents a players hand.  
+     * This will take two arrays, and must be called depending on what player   'drawsFromGame'.
+     */        
+        return cards.remove( 0 );
+    }//End of drawFromGame()
+    public int getTotalCards()
     {
-        return players;
-    }
-
-    /**
-     * @param players the players of this game
-     */
-    public void setPlayers(ArrayList <Player> players) 
-    {
-        this.players = players;
-    }
-    
-    /**
-     * Play the game. This might be one method or many method calls depending
-     * on your game.
-     */
-    public abstract void play();
-    
-    /**
-     * When the game is over, use this method to declare and display a winning
-     * player.
-     */
-    public abstract void declareWinner();
-
-   
-    
+        return cards.size();   
+    }//End of getTotalCards()
 }//end class

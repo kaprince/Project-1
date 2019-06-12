@@ -9,40 +9,21 @@ package ca.sheridancollege.project;
  * A class that models each Player in the game. Players have an identifier, which should be unique.
  * 
  */
-public abstract class Player 
+public class Player 
 {
-    private String playerID; //the unique ID for this player
-    
-    /**
-     * A constructor that allows you to set the player's unique ID
-     * @param name the unique ID to assign to this player.
-     */
-    public Player(String name)
+     private GroupOfCards[] playerOneCards;
+    private GroupOfCards[] playerTwoCards;
+    private int[] value;
+    Player(Game g, int round)
     {
-        playerID= name;
+        value = new int[round];
+        playerOneCards = new GroupOfCards[round+2];
+        playerTwoCards = new GroupOfCards[round+2];
+               //(round+2) is the handsize at any given time
+        for (int x=0; x<round; x++)
+        {
+        playerOneCards[x] = g.drawFromGame(); //fills up one hand.
+        playerTwoCards[x] = g.drawFromGame(); //fills up second hand.
+        }
     }
-    
-    /**
-     * @return the playerID
-     */
-    public String getPlayerID() 
-    {
-        return playerID;
-    }
-
-    /**
-     * Ensure that the playerID is unique
-     * @param givenID the playerID to set
-     */
-    public void setPlayerID(String givenID) 
-    {
-        playerID = givenID;
-    }
-    
-    /**
-     * The method to be instantiated when you subclass the Player class
-     * with your specific type of Player and filled in with logic to play your game.
-     */
-    public abstract void play();
-    
 }

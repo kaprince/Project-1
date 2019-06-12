@@ -11,16 +11,17 @@ package ca.sheridancollege.project;
  * should remember to add themselves as a modifier.
  * 
  */
-public abstract class Card 
+import java.util.*;
+public class Card 
 {
-    //default modifier for child classes
-    
-    /**
-     * Students should implement this method for their specific children classes 
-     * @return a String representation of a card. Could be an UNO card, a regular playing card etc.
-     */
-    
-    @Override
-    public abstract String toString();
-    
-}
+    public static void main(String[] args) {
+        
+        Game g = new Game();
+
+        System.out.println(g.getTotalCards());
+        System.out.println(g.getClass());
+        int round = 1;
+        new Player(g, round);       
+        }//End of arguments
+    }//End of class
+   
